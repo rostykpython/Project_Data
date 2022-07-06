@@ -1,21 +1,45 @@
-from django.shortcuts import render, HttpResponseRedirect, HttpResponse
-from .forms import FileUploaded
-from .file_functions import upload_file_handle
+from django.shortcuts import render
+from .forms import FileImage
+from pathlib import Path
+from .file_functions import open_file_handler
+from .apps import ImageRecognitionConfig
 
 
 def index(request):
-    return HttpResponse('heellowowjf')
+    return render(request, 'home.html')
 
 
-def files(request):
+def image_recognition(request):
+    print(request.GET, end='\n')
+    print(request.POST, end='\n')
+    print(request.FILES, end='\n')
     if request.method == 'POST':
-        form = FileUploaded(request.POST, request.FILES)
-        print(request.FILES)
+        form = FileImage(request.POST, request.FILES)
+        print('fff')
         if form.is_valid():
-            print(request.FILES['file'])
-            request.FILES['file'].read()
-
-            return render(request, 'home.html', {'f': request, 'form': form, 'img':request.FILES['file']})
+            file = request.FILES['file']
+            print('fff')
+            for item in Path('./media/upload').iterdir():
+                if item.name == str(file):
+                    return render(
+                        request, 'images_nn.html',
+                        {
+                            'f': request,
+                            'form': form,
+                            'img_path': f'./media/upload/{file}',
+                            'pred': open_file_handler(f'./media/upload/{file}',
+                                                      model=ImageRecognitionConfig.pretrained_model)
+                        }
+                    )
+            form.save()
+            return render(request, 'images_nn.html',
+                          {'f': request,
+                           'form': form,
+                           'img_path': f'./media/upload/{file}',
+                           'pred': open_file_handler(f'./media/upload/{file}',
+                                                     model=ImageRecognitionConfig.pretrained_model)
+                           }
+                          )
     else:
-        form = FileUploaded()
-    return render(request, 'home.html', {'f': request, 'form': form})
+        form = FileImage()
+    return render(request, 'images_nn.html', {'f': request, 'form': form})

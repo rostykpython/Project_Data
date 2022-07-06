@@ -1,0 +1,42 @@
+
+{% extends 'home.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+
+            <div class="col-sm-4">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="form-label" for="customFile">Upload your file</label>
+                    <input type="file" class="form-control mb-3" id="customFile" name="file"/>
+                    <select class="form-select mb-3" aria-label="Default select example" name="selection">
+                        <option selected>Choose pretrained NN</option>
+                        <option value="vgg16">VGG16</option>
+                        <option value="vgg19">VGG19</option>
+                        <option value="resnet">Resnet</option>
+                    </select>
+<!--                    {{ form }}-->
+                    <input type="submit" value="Predict">
+                </form>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="{{img_path}}" class="float-left" width="300hf">
+                <p>{{ pred }}</p>
+            </div>
+
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <img src="{{img_path}}" class="float-left" width="300hf">
+                <p>{{ pred }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -2,7 +2,17 @@ from django import forms
 from .models import FileUploaded
 
 
-class EmployeeForm(forms.ModelForm): 
+class FileImage(forms.ModelForm):
     class Meta: 
         model = FileUploaded
-        fields = ['name', 'emp_image']
+        fields = ['image', 'model']
+        widgets = {
+            'image': forms.widgets.FileInput(attrs={
+                'class': 'form-control',
+                'type': 'file',
+                'id': "formFileDisabled",
+                'value': ''
+
+            })
+        }
+# <input type="file" class="form-control" id="customFile" />
