@@ -3,30 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
+    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-</head>
-{% load static %}
-<body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand center" href="{% url 'home' %}"><img src="{% static '/logo/bot.png' %}" alt="" width="30"></a>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'image' %}">Image recognition</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link 2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link 3</a>
-        </li>
-      </ul>
-    </nav>
-    <br>
-{% block content %}
 
-    <img src="">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        #arrowAnim {
+  width: 55vh;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  width: 3vw;
+  height: 3vw;
+  border: 1vw solid;
+  border-color: black transparent transparent black;
+  transform: rotate(135deg);
+}
+
+
+.arrowSliding {
+  position: absolute;
+  -webkit-animation: slide 4s linear infinite;
+          animation: slide 4s linear infinite;
+}
+
+.delay1 {
+  -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+.delay2 {
+  -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+}
+.delay3 {
+  -webkit-animation-delay: 3s;
+    animation-delay: 3s;
+}
+
+@-webkit-keyframes slide {
+    0% { opacity:0; transform: translateX(-15vw); }
+   20% { opacity:1; transform: translateX(-9vw); }
+   80% { opacity:1; transform: translateX(9vw); }
+  100% { opacity:0; transform: translateX(15vw); }
+}
+@keyframes slide {
+    0% { opacity:0; transform: translateX(-15vw); }
+   20% { opacity:1; transform: translateX(-9vw); }
+   80% { opacity:1; transform: translateX(9vw); }
+  100% { opacity:0; transform: translateX(15vw); }
+}
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static '/logo/bot.png' %}" alt="" width="30"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" >
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    {% if request.user.is_authenticated%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'image' %}">Image recognition</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav mc-auto">
+                    {% if request.user.is_authenticated%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                        {% else %}
+                    <li>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+{% block content %}
+      <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+    <div class="overlay">
+  <!-- The HTML5 video element that will create the background video on the header -->
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" width="100%" height="80%">
+        <source src="{% static '/video/Neural Network Modular Template for Final Cut Pro — MotionVFX.mp4'%}" type="video/mp4">
+    </video>
+
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto ">
+                    <h1 class="display-2" style="margin-bottom: 30px">Image Recognition project</h1>
+                    <p ><h5 class="lead">This project is created by 3 developers: Lesya Fedorenko, Yurii Zubar and Rostyslav Lytyvynets</h5></p>
+                    <p><h5 class="lead">We have studied for several months on the last block Python Data Science
+                    of our Big Python Course from GOIT and now presenting you our final project</h5></p>
+                    <p><h5 class="lead">I`m sure it looks quite simple, but still a lot of work has been done behind. The main idea is
+                            to show you how neural networks can predict different objects on photos. For our project we choose
+                several pretrained NN to get the best performance. We hope you will enjoy it</h5></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
+
 </body>
 </html>

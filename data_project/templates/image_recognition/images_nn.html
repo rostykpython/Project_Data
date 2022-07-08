@@ -2,41 +2,74 @@
 {% extends 'home.html' %}
 {% block content %}
 {% load crispy_forms_tags %}
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid mt-3">
+        <div class="row align-center">
             <div class="col-sm-4">
+                {% for message in messages%}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Shape for selected model!</strong> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 mb-4">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label class="form-label" for="customFile">Upload your file</label>
-                    <input type="file" class="form-control mb-3" id="customFile" name="file"/>
-                    <select class="form-select mb-3" aria-label="Default select example" name="selection">
-                        <option selected>Choose pretrained NN</option>
-                        <option value="vgg16">VGG16</option>
-                        <option value="vgg19">VGG19</option>
-                        <option value="resnet">Resnet</option>
+                    {{ form.image }}
+                    <label class="form-label">Choose pretrained model</label>
+                    <select class="form-select mb-3" aria-label="Default select example" name="selection" required >
+                        <option value="EfficientNet">EfficientNet</option>
+                        <option value="EfficientNetV2">EfficientNetV2</option>
+                        <option value="Xception">Xception</option>
+
                     </select>
-<!--                    {{ form }}-->
-                    <input type="submit" value="Predict">
+
+                    <input class="btn btn-primary" type="submit" value="Predict">
+                    <input class="btn btn-primary" type="reset" value="Clear">
                 </form>
             </div>
             <div class="col-sm-4">
             </div>
         </div>
+        {% if not messages %}
         <div class="row">
-            <div class="col-sm-4">
-                <img src="{{img_path}}" class="float-left" width="300hf">
-                <p>{{ pred }}</p>
+            <div class="col-sm-4 align-self-center">
+                <img src="{{img_path}}" style="margin-left: 5vh; width: 25rem">
             </div>
 
-            <div class="col-sm-4">
+            {% if img_path %}
+            <div class="col-sm-4 align-self-center">
+                <div id="arrowAnim">
+                    <div class="arrowSliding">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="arrowSliding delay1">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="arrowSliding delay2">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="arrowSliding delay3">
+                        <div class="arrow"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <img src="{{img_path}}" class="float-left" width="300hf">
-                <p>{{ pred }}</p>
+            {% endif %}
+            <div class="col-sm-4 align-self-center" >
+                {% if pred_img %}
+                <div class="card" style="width: 50vh; margin-left: 70px">
+                    <img src="{{pred_img}}" class="card-img-top center" alt="Fissure in Sandstone" style="place-content: center"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Our model <strong style="color: chartreuse">{{ selected_model|title }}</strong> thinks it`s a <strong style="color: brown">{{ pred| upper}}</strong></h5>
+                        <p class="card-text">{{ description }}</p>
+                        <a href="{% url 'image' %}" class="btn btn-primary">Clear</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

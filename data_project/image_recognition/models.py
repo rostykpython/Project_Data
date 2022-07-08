@@ -1,16 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.user.id, str(filename))
 
 
 class FileUploaded(models.Model):
-    class ModelNN(models.TextChoices):
-        VGG16 = "1", "VGG16"
-        VGG19 = "2", "VGG19"
-        DENSENET = "3", "DENSENET"
-
-    model = models.CharField(
-        max_length=2,
-        choices=ModelNN.choices,
-        default=ModelNN.VGG16
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
-    image = models.FileField(upload_to='upload/')
+    image = models.FileField(upload_to=user_directory_path, )
 
