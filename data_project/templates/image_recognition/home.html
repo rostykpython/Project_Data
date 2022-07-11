@@ -114,12 +114,20 @@
             <div class="row">
                 <div class="col-md-8 mx-auto ">
                     <h1 class="display-2" style="margin-bottom: 30px">Image Recognition project</h1>
-                    <p ><h5 class="lead">This project is created by 3 developers: Lesya Fedorenko, Yurii Zubar and Rostyslav Lytyvynets</h5></p>
+                    <p ><h5 class="lead">This project is created by 3 developers:
+                    <a href="https://github.com/LesiaFedorenko">Lesya Fedorenko</a>, <a href="https://github.com/ErihKoh">Yurii Zubar</a>
+                    and <a href="https://github.com/rostykpython">Rostyslav Lytyvynets</a></h5></p>
                     <p><h5 class="lead">We have studied for several months on the last block Python Data Science
                     of our Big Python Course from GOIT and now presenting you our final project</h5></p>
                     <p><h5 class="lead">I`m sure it looks quite simple, but still a lot of work has been done behind. The main idea is
                             to show you how neural networks can predict different objects on photos. For our project we choose
                 several pretrained NN to get the best performance. We hope you will enjoy it</h5></p>
+                    <p><h5 class="lead">Our github project page: <a href="https://github.com/rostykpython/Project_Data">https://github.com/rostykpython/Project_Data</a></h5></p>
+
+                    {% if not request.user.is_authenticated %}
+                    <p><h5 class="lead">Before using our application you need to
+                    <a href="{% url 'register' %}">register</a> or <a href="{% url 'login' %}">log in</a></h5></p>
+                    {% endif %}
                 </div>
             </div>
         </div>

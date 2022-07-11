@@ -10,5 +10,5 @@ class ImageRecognitionConfig(AppConfig):
 
     pretrained_model_effnet = load_model(MODEL_PATH_EFFNET)
     pretrained_model_effv2 = load_model('./static/models_nn/model_effv2')
-    pretrained_model_xception = load_model('./static/models_nn/asadadad-20220708T185154Z-001')
+    pretrained_model_xception = load_model('./static/models_nn/model_xception')
 

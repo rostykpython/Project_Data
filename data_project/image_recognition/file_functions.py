@@ -16,13 +16,14 @@ def open_file_handler(path_to_img: str, model_name: str, request=None):
         if img_array.shape != required_input_shape:
             img_array = tf.image.resize(img_array, (required_input_shape[0], required_input_shape[1]))
         preprocessed_img_array = np.stack((img_array, ), axis=0)
-        class_number = np.argmax(model.predict(preprocessed_img_array))
+        prediction_array = model.predict(preprocessed_img_array)
+
+        class_numbers = dict(zip(class_names, prediction_array.flatten()))
+        sorted_values_list = sorted(class_numbers.items(), key=lambda x: x[1])
 
     except (AttributeError, ValueError):
-        return messages.error(request, message='You should check your input or the title of it!')
-
-    predicted_value = class_names[class_number]
-    return predicted_value
+        return messages.error(request, message='You should check your input file or choose another model!')
+    return sorted_values_list
 
 
 def get_pretrained_model(model_name):

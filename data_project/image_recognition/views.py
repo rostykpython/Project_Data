@@ -4,18 +4,18 @@ from .forms import FileImage, CustomCreationForm, LoginForm
 from .models import FileUploaded
 from pathlib import Path
 from .file_functions import open_file_handler, get_class_information
-from django.contrib.auth.views import LoginView, FormView, AuthenticationForm
+from django.contrib.auth.views import LoginView, FormView
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='login/')
 def home(request):
     return render(request, 'home.html')
 
 
 @login_required(login_url='login/')
 def image_recognition(request):
+
     if request.method == 'POST':
         form = FileImage(request.POST, request.FILES)
 
@@ -29,14 +29,16 @@ def image_recognition(request):
             user_files = list(Path(f'./media/user_{request.user.id}').iterdir())
             quantity_of_files = len(user_files)
 
-            if quantity_of_files > 4 and user_files[0].name != str(file):
+            if quantity_of_files > 3 and user_files[0].name != str(file):
                 user_files[0].unlink()
 
             for item in user_files:
                 if item.name == str(file):
-                    prediction = open_file_handler(f'./media/user_{request.user.id}/{file}',
-                                                   model_name=request.POST['selection'],
-                                                   request=request)
+                    prediction_array = open_file_handler(f'./media/user_{request.user.id}/{file}',
+                                                         model_name=request.POST['selection'],
+                                                         request=request)
+
+                    prediction = prediction_array[-1][0]
                     return render(
                         request, 'images_nn.html',
                         {
@@ -50,9 +52,11 @@ def image_recognition(request):
                     )
 
             model_file.save()
-            prediction = open_file_handler(f'./media/user_{request.user.id}/{file}',
-                                           model_name=request.POST['selection'],
-                                           request=request)
+            prediction_array = open_file_handler(f'./media/user_{request.user.id}/{file}',
+                                                 model_name=request.POST['selection'],
+                                                 request=request)
+
+            prediction = prediction_array[-1][0]
             return render(request, 'images_nn.html',
                           {
                               'form': form,

@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-2o2hmel_q&_)gz0a4w9c346$%-$d&i=56u6^%xo7+sff9u!j+u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'image_recognition.apps.ImageRecognitionConfig',
-    'crispy_forms'
 ]
 
 MIDDLEWARE = [
