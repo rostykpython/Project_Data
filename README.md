@@ -1,4 +1,4 @@
-# CIFAR 10 Classification with Transfer Learning
+# CIFAR-10 Classification with Transfer Learning
 
 This project demonstrates using the Keras API to classify images from the [CIFAR-10](https://www.kaggle.com/c/cifar-10) dataset using transfer learning.
 
