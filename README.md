@@ -15,14 +15,12 @@ The CIFAR-10 dataset only has 10 classes so we only want 10 output probabilities
 We upscale our CIFAR-10 dataset from 32x32x3 -> 224x224x3.
 
 ### Install application
-Using Docker. Download docker_version.zip and unpack archieve folder. Run by 2 commands:
-docker-compose build
-and
+Using Docker. Run by command in data_project directory:
 
 ```
-docker-compose run -dp 8000:8000 web
+docker compose up -d
 ```
-Download ZIP. Download apllication zip file from repository, unpack it and copy.
+And access application with your localhost on 8000 port
 
 ### Install Pipenv
 Pipenv is a new popular way of automatically creating a 'virtualenv' for the project. It creates Pipfile and Pipfile.lock.
@@ -34,10 +32,11 @@ pip install pipenv
 For the application to work corretly, you need to install the neccessary Python libraries. For the installation of the libraries, use the following command:
 
 ```
-pipenv sync
+pipenv install
+pipenv shell
 ```
 ### Database settings
-To set up a database connection, enter the necessary settings for connecting to yor database in settings.py located in the application folder.
+To set up a database connection, enter the necessary settings for connecting to your database in settings.py located in the application folder.
 
 ### Run the application
 If everything has been installed correctly, run the development server.
