@@ -44,5 +44,7 @@ Use the following command:
 $ python manage.py runserver
 ```
 Open your favorite browser and check at http://127.0.0.1:8000/. You should see a login page that tells you the installation was successfull.
+Below an example:
+![](https://github.com/rostykpython/Project_Data/blob/main/data_project/static/logo/screen.png?raw=true)
 
 Great :tada: Now to access  the function of the application you need to go through authorization.
