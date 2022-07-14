@@ -27,12 +27,12 @@ def open_file_handler(path_to_img: str, model_name: str, request=None):
 
 
 def get_pretrained_model(model_name):
-    if model_name == 'EfficientNet':
-        return ImageRecognitionConfig.pretrained_model_effnet, (80, 80, 3)
-    elif model_name == 'EfficientNetV2':
+    if model_name == 'EfficientNetV2':
         return ImageRecognitionConfig.pretrained_model_effv2, (32, 32, 3)
     elif model_name == 'Xception':
         return ImageRecognitionConfig.pretrained_model_xception, (32, 32, 3)
+    elif model_name == 'VGG16':
+        return ImageRecognitionConfig.pretrained_model_vgg16, (32, 32, 3)
 
 
 def get_class_information(class_name):

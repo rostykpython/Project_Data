@@ -5,10 +5,11 @@ name = "pypi"
 
 [packages]
 pillow = "*"
-matplotlib = "*"
 tensorflow = "*"
 django = "*"
 numpy = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 
