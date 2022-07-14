@@ -5,10 +5,8 @@ This project demonstrates using the Keras API to classify images from the [CIFAR
 ### Method
 Models used the classify our images is created from the pretrained image classifiers:
 * [VGG16](https://keras.io/api/applications/vgg/#vgg16-function)
-* [VGG19](https://www.kaggle.com/c/cifar-10)
 * [EfficientnetV2](https://keras.io/api/applications/efficientnet_v2/#efficientnetv2b2-function)
 * [Xception](https://keras.io/api/applications/xception/)
-* [Resnet50](https://keras.io/api/applications/resnet/#resnet50-function)
 
 These networks were originally trained to classify images from the imagenet dataset. This dataset consists of thousands of images divided into 1000 distinct categories.
 The CIFAR-10 dataset only has 10 classes so we only want 10 output probabilities.
